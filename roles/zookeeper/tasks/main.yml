@@ -1,0 +1,18 @@
+- name: install zookeeper repo
+  yum: name=http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/cdh4-repository-1-0.noarch.rpm state=present
+
+- name: install zookeeper-server
+  yum: name=zookeeper-server state=present
+
+- name: zoo.cfg allocate
+  template: src=zoo.cfg.j2 dest={{conf_dir}}/zoo.cfg
+  notify: restart zookeeper-server
+
+- name: mkdir zookeeper data dir
+  file: path=/var/lib/zookeeper state=directory owner=zookeeper group=zookeeper
+
+- name: initialize zookeeper directory
+  command: /usr/lib/zookeeper/bin/zkServer-initialize.sh --myid=1 /var/lib/zookeeper/data creates=/var/lib/zookeeper/myid
+  sudo: yes
+  sudo_user: zookeeper
+  notify: restart zookeeper-server

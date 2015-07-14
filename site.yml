@@ -1,0 +1,8 @@
+---
+- name: install kafka
+  hosts: all
+  sudo : yes
+  roles:
+    - java-1.7
+    - zookeeper
+    - kafka
