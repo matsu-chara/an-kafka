@@ -1,4 +1,4 @@
 ---
 dependencies:
-- { role: java-1.7 }
+- { role: java }
 - { role: zookeeper }

@@ -14,6 +14,10 @@ vagrant up
 
 * インストールの手順は以下を参考にした。 http://kimutansk.hatenablog.com/entry/20130804/1375614109
 
-* kafkaの実際の触り方も上記が参考になる
-
-* an-centos-6.5への依存は消した（再頒布性重視）
+```
+vagrant ssh
+cd /opt/kafka
+sudo /opt/kafka/bin/kafka-server-start.sh /opt/kafka_config/server.properties
+/opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --zookeeper localhost:2181 --topic test --from-beginning
+```

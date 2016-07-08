@@ -1,9 +1,17 @@
 ---
 - name: get source
-  get_url: url=https://dist.apache.org/repos/dist/release/kafka/0.8.2.1/kafka_{{ version }}.tgz dest={{ src }}
+  get_url: url=https://dist.apache.org/repos/dist/release/kafka/0.10.0.0/kafka_{{ version }}.tgz dest={{ src }}
 
 - name: unarchive source
   command: tar zxvf kafka_{{ version }}.tgz chdir={{ src }} creates={{ src }}/kafka_{{ version }}
 
 - name: allocate kafka
   file: src={{ src }}/kafka_{{ version }} dest=/opt/kafka state=link
+
+- name: create conf dir
+  file: path=/opt/kafka_config state=directory mode=0755
+
+- name: copy config
+  template: >
+    src=server.properties.j2
+    dest=/opt/kafka_config/server.properties

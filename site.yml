@@ -3,6 +3,7 @@
   hosts: all
   sudo : yes
   roles:
-    - java-1.7
+    - libselinux-python
+    - java
     - zookeeper
     - kafka
